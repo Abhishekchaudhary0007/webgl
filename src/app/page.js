@@ -1,69 +1,110 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useEffect } from "react";
+import Lenis from "lenis";
+import gsap from "gsap";
+
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import WebGLScene from "./components/WebGLScene";
+import CustomCursor from "./components/CustomCursor";
+import MagneticButton from "./components/MagneticButton";
+import HorizontalProjects from "./components/HorizontalProjects";
 
 export default function Home() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      smoothWheel: true,
+      lerp: 0.08,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    // Connect Lenis + GSAP
+
+    lenis.on("scroll", () => {
+      // ScrollTrigger.update();
+    });
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <CustomCursor />
+
+      <Navbar />
+
+      <main>
+        {/* HERO */}
+
+        <section className="hero-section">
+          <WebGLScene />
+
+          <Hero />
+        </section>
+
+        {/* ABOUT */}
+
+        <section className="content-section">
+          <p className="section-label">
+            01 — ABOUT
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+          <h2>
+            We build
+            <span>
+              {" "}
+              digital experiences{" "}
+            </span>
+            that feel alive.
+          </h2>
+
+          <p className="description">
+            We combine WebGL, Three.js,
+            GSAP, Framer Motion and
+            smooth scrolling to create
+            immersive digital experiences.
+          </p>
+
+          <MagneticButton>
+            DISCOVER MORE ↗
+          </MagneticButton>
+        </section>
+
+        {/* HORIZONTAL PROJECTS */}
+
+        <HorizontalProjects />
+        
+
+        {/* CONTACT */}
+
+        <section className="contact-section">
+          <p className="section-label">
+            03 — CONTACT
+          </p>
+
+          <h2>
+            Let's create
+            <br />
+            something{" "}
+            <span>different.</span>
+          </h2>
+
+          <MagneticButton>
+            START A PROJECT ↗
+          </MagneticButton>
+        </section>
       </main>
-    </div>
+    </>
   );
 }
