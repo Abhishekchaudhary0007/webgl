@@ -47,7 +47,7 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 0.8 }}
       >
         Web experiences powered by creativity,
-        technology and motion.
+        Gaming Zone
       </motion.p>
 
       <motion.button
