@@ -17,7 +17,7 @@ export default function Navbar() {
         DIGITAL<span>.</span>
       </div>
       <button className="menu-button">
-        MENU
+        Tab here
       </button>
     </motion.nav>
   );
